@@ -13,11 +13,12 @@ class Message(Base):
     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
 
     session_id = Column(
-        UUID(as_uuid=True),
-        ForeignKey("sessions.id"),
-        nullable=False,
-        index=True
+        UUID(as_uuid=True), ForeignKey("sessions.id"), nullable=False, index=True
     )
+
+    generation = Column(Integer, nullable=False, default=1, index=True)
+
+    model = Column(String, nullable=True)
 
     role = Column(String, nullable=False)
     content = Column(Text, nullable=False)
@@ -29,7 +30,5 @@ class Message(Base):
     cost = Column(Numeric(12, 8), nullable=True)
 
     created_at = Column(
-        DateTime(timezone=True),
-        server_default=func.now(),
-        nullable=False
+        DateTime(timezone=True), server_default=func.now(), nullable=False
     )

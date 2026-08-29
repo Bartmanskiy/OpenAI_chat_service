@@ -6,11 +6,11 @@ PRICING = {
 }
 
 
-def calculate_cost(
-    model: str,
-    input_tokens: int,
-    output_tokens: int
-) -> float:
+def is_supported_model(model: str) -> bool:
+    return model in PRICING
+
+
+def calculate_cost(model: str, input_tokens: int, output_tokens: int) -> float:
     pricing = PRICING.get(model)
 
     if pricing is None:
